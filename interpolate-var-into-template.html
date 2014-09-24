@@ -1,0 +1,35 @@
+<html>
+  <head>
+    <script src="lib/angular.js"></script>
+  </head>
+
+  <body ng-app="interpolationApp">
+    <h1>Interpolate variables into template</h1>
+    <form ng-controller="interpolationController">
+      <div>
+        <label for="to">To:</label>
+        <input id="to" type="text" name="to" ng-model="to">
+      </div>
+      <div>
+        <label for="body">Body:</label>
+        <textarea id="body" name="body" ng-model="body"></textarea>
+      </div>
+      <div>
+        <h3>Result</h3>
+        <pre>{{ resultText }}</pre>
+      </div>
+    </form>
+    <script>
+      angular.module('interpolationApp', [])
+        .controller('interpolationController', function($scope, $interpolate) {
+          $scope.to = "Dawid";
+          $scope.body = "  Hello {{ to }}!\nHow are you today?";
+          var interpolate = function() {
+            $scope.resultText = $interpolate($scope.body)($scope);
+          };
+          $scope.$watch('body', interpolate);
+          $scope.$watch('to', interpolate);
+        })
+    </script>
+  </body>
+</html>
