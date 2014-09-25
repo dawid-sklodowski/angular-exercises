@@ -1,0 +1,35 @@
+<html>
+<head>
+  <script src="lib/angular.js"></script>
+  <link rel="stylesheet" type="text/css" href="lib/style.css">
+</head>
+<body ng-app="app">
+  <form name="form" novalidate>
+    <div>
+      <input type="text" name="username" placeholder="User name"
+             ng-model="username"
+             unique-username />
+      <div class="errors" ng-show="form.username.$dirty && form.username.$invalid">
+        <div class="error" ng-show="form.username.$error.uniqueness">{{ username }} is already taken</div>
+      </div>
+    </div>
+  </form>
+<script>
+  angular.module('app', [])
+    .directive('uniqueUsername', function() {
+      return {
+        require: 'ngModel',
+        link: function(scope, element, attributes, control) {
+          scope.$watch(attributes.ngModel, function(value) {
+            if(!value || Math.random() < 0.2 ) {
+              control.$setValidity('uniqueness', true)
+            } else {
+              control.$setValidity('uniqueness', false)
+            }
+          })
+        }
+      }
+    });
+</script>
+</body>
+</html>
