@@ -1,0 +1,17 @@
+<html>
+  <head>
+    <script src="lib/angular.js"></script>
+  </head>
+  <body ng-app="filterApp">
+    {{ "I'm so happy to test" | replace:'\\s':'.' }}
+    <script>
+      angular.module('filterApp', [])
+        .filter('replace', function() {
+          return function(input, expression, substitutor) {
+            return input.replace(RegExp(expression, 'g'), substitutor);
+          }
+        })
+    </script>
+  </body>
+</html>
+
