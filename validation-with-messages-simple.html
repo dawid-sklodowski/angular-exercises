@@ -29,6 +29,7 @@
         <div class="error" ng-show="form.name.$error.maxlength">Name can't have more that 10 characters</div>
       </div>
     </div>
+    <button type="submit" ng-disabled="form.$invalid">Submit</button>
   </form>
   <script>
     angular.module('filterApp', [])
