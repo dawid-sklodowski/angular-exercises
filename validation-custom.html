@@ -19,12 +19,12 @@
     .directive('uniqueUsername', function() {
       return {
         require: 'ngModel',
-        link: function(scope, element, attributes, control) {
+        link: function(scope, element, attributes, controller) {
           scope.$watch(attributes.ngModel, function(value) {
             if(!value || Math.random() < 0.2 ) {
-              control.$setValidity('uniqueness', true)
+              controller.$setValidity('uniqueness', true)
             } else {
-              control.$setValidity('uniqueness', false)
+              controller.$setValidity('uniqueness', false)
             }
           })
         }
