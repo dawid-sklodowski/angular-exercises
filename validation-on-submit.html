@@ -1,0 +1,25 @@
+<html>
+<head>
+  <script src="lib/angular.js"></script>
+  <link rel="stylesheet" type="text/css" href="lib/style.css">
+</head>
+<body ng-app="app">
+<form name="form" novalidate ng-submit="submit()">
+  <div>
+    <input type="email" name="email" placeholder="email"
+           ng-model="email" />
+    <div class="errors" ng-show="form.email.$dirty && form.email.$invalid && form.submitted">
+      <div class="error" ng-show="form.email.$error.email">{{ email }} is not an email</div>
+    </div>
+  </div>
+  <button type="submit">Submit</button>
+</form>
+<script>
+  angular.module('app', []).run(function($rootScope) {
+    $rootScope.submit = function() {
+      $rootScope.form.submitted = true
+    }
+  });
+</script>
+</body>
+</html>
