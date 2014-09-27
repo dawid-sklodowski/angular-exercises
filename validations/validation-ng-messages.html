@@ -1,0 +1,26 @@
+<html>
+<head>
+  <script src="../lib/angular.js"></script>
+  <script src="../lib/angular-messages.js"></script>
+  <link rel="stylesheet" type="text/css" href="../lib/style.css">
+</head>
+<body ng-app="app">
+<form name="form" novalidate>
+  <div>
+    <input type="email" name="email" placeholder="Email address"
+           ng-model="email"
+           ng-minlength="6"
+           ng-maxlength="4"
+    />
+    <div class="errors" ng-messages="form.email.$error" ng-messages-multiple  >
+      <div class="error" ng-message="email">{{ email }} is not an email</div>
+      <div class="error" ng-message="minlength">{{ email }} needs at least 6 characters</div>
+      <div class="error" ng-message="maxlength">{{ email }} can have up to 4 characters</div>
+    </div>
+  </div>
+</form>
+<script>
+  angular.module('app', ['ngMessages'])
+</script>
+</body>
+</html>
