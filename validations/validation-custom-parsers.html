@@ -1,0 +1,43 @@
+<html>
+<head>
+  <script src="../lib/angular.js"></script>
+  <link rel="stylesheet" type="text/css" href="../lib/style.css">
+</head>
+<body ng-app="app">
+<form name="form" novalidate>
+  <div>
+    <input type="text" name="username" placeholder="User name"
+           ng-model="username"
+           unique-username />
+    <div class="errors" ng-show="form.username.$dirty && form.username.$invalid">
+      <div class="error" ng-show="form.username.$error.uniqueness">This username is already taken</div>
+    </div>
+  </div>
+</form>
+<script>
+  angular.module('app', [])
+    .directive('uniqueUsername', function() {
+      return {
+        require: 'ngModel',
+        link: function(scope, element, attributes, controller) {
+          if (!controller) return;
+          controller.$parsers.unshift(function(value) {
+            if(!value || Math.random() < 0.2 ) {
+              controller.$setValidity('uniqueness', true);
+
+              // Pass value to next parser and update model in the end
+              return value;
+            } else {
+              controller.$setValidity('uniqueness', false);
+
+              // Passing undefined down the parsers chain prevents model from being updated
+              return undefined;
+            }
+
+          });
+        }
+      }
+    });
+</script>
+</body>
+</html>
