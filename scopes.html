@@ -1,0 +1,30 @@
+<html>
+<head>
+  <script src="lib/angular.js"></script>
+</head>
+<body ng-app="app">
+<div>Outside of controller, rootPropety: {{ rootProperty }}</div>
+<div>Outside of controller, overriddenRootPropety: {{ overriddenRootProperty }}</div>
+<div>Outside of controller, modifiedRootPropety: {{ modifiedRootProperty }}</div>
+<div>Outside of controller, controllerPropety: {{ controllerProperty }}</div>
+<div ng-controller="controller">
+  <div>Inside Controller, rootProperty: {{ rootProperty }}</div>
+  <div>Inside Controller, overriddenRootProperty: {{ overriddenRootProperty }}</div>
+  <div>Inside Controller, modifiedRootProperty: {{ modifiedRootProperty }}</div>
+  <div>Inside Controller, controllerProperty: {{ controllerProperty }}</div>
+</div>
+<script>
+  angular.module('app', [])
+    .run(function($rootScope) {
+      $rootScope.rootProperty = 'rootProperty';
+      $rootScope.overriddenRootProperty = 2;
+      $rootScope.modifiedRootProperty = { a: 'b' }
+    })
+    .controller('controller', function($scope){
+      $scope.controllerProperty = 'controllerProperty';
+      $scope.overriddenRootProperty = 4;
+      $scope.modifiedRootProperty.c = 'd'
+    });
+</script>
+</body>
+</html>
