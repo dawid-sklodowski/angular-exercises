@@ -23,18 +23,18 @@
     return {
       restrict: 'A',
       require: 'ngModel',
-      link: function(scope, element, attributes, controller) {
-        controller.blurred = false;
+      link: function(scope, element, attributes, model) {
+        model.blurred = false;
         element.bind('focus', function(event) {
           element.removeClass('blurred');
           scope.$apply(function() {
-            controller.blurred = false;
+            model.blurred = false;
           });
         });
         element.bind('blur', function(event) {
           element.addClass('blurred');
           scope.$apply(function(){
-            controller.blurred = true;
+            model.blurred = true;
           })
         });
       }

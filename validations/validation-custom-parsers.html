@@ -19,16 +19,16 @@
     .directive('uniqueUsername', function() {
       return {
         require: 'ngModel',
-        link: function(scope, element, attributes, controller) {
-          if (!controller) return;
-          controller.$parsers.unshift(function(value) {
+        link: function(scope, element, attributes, model) {
+          if (!model) return;
+          model.$parsers.unshift(function(value) {
             if(!value || Math.random() < 0.2 ) {
-              controller.$setValidity('uniqueness', true);
+              model.$setValidity('uniqueness', true);
 
               // Pass value to next parser and update model in the end
               return value;
             } else {
-              controller.$setValidity('uniqueness', false);
+              model.$setValidity('uniqueness', false);
 
               // Passing undefined down the parsers chain prevents model from being updated
               return undefined;
