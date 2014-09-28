@@ -1,0 +1,20 @@
+<html>
+<head>
+  <script src="../lib/angular.js"></script>
+</head>
+<body ng-app="app">
+<my-link></my-link>
+<div my-link></div>
+<div class="my-link"></div>
+<!-- directive: my-link -->
+<script>
+  angular.module('app', []).directive('myLink', function() {
+    return {
+      restrict: 'EACM',
+      replace: true,
+      template: '<div><a href="http://onceuponaline.info">Once upon a line</a></div>'
+    }
+  })
+</script>
+</body>
+</html>
