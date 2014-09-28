@@ -1,0 +1,22 @@
+<html>
+<head>
+  <script src="../lib/angular.js"></script>
+</head>
+<body ng-app="app">
+<a my-link link-url="http://onceuponaline.info"
+           link-text="Once Upon a Line" />
+<script>
+  angular.module('app', []).directive('myLink', function() {
+    return {
+      restrict: 'A',
+      scope: {
+        linkUrl: '@',
+        linkText: '@'
+      },
+      replace: true,
+      template: '<a href="{{ linkUrl }}">{{ linkText }}</a>'
+    }
+  })
+</script>
+</body>
+</html>
