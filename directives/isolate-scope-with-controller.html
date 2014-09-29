@@ -1,0 +1,27 @@
+<html>
+<head>
+  <script src="../lib/angular.js"></script>
+</head>
+<body ng-app="app">
+<a my-link link-text="Once Upon a Line" />
+<script>
+  angular.module('app', [])
+    .run(function($rootScope) {
+      $rootScope.attrFromRootScope = 'I am from root scope'; // Won't be available in isolated scope
+    })
+    .directive('myLink', function() {
+      return {
+        restrict: 'A',
+        scope: {
+          linkText: '@'
+        },
+        replace: true,
+        template: '<a href="{{ linkUrl }}">{{ linkText }} {{ attrFromRootScope }}</a>',
+        controller: function($scope) {
+          $scope.linkUrl = 'http://onceuponaline.info';
+        }
+      }
+    });
+</script>
+</body>
+</html>
