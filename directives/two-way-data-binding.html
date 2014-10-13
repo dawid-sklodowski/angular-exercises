@@ -1,0 +1,35 @@
+<html>
+<head>
+  <script src="../lib/angular.js"></script>
+</head>
+<body ng-app="app">
+
+<div>
+  <h3>Outside</h3>
+  <input type="text" ng-model="linkText" />
+  <div>Text from inside: <input type="text" ng-model="textFromInside"> </div>
+</div>
+<div my-link inside="textFromInside" link-text="linkText" link-url="http://onceuponaline.info">
+</div>
+
+<script>
+  angular.module('app', [])
+    .directive('myLink', function() {
+      return {
+        restrict: 'A',
+        scope: {
+          linkTextFromOutside: '=linkText',
+          linkUrl: '@',
+          insideText: '=inside'
+        },
+        template: '<div>' +
+                    '<h3>Inside</h3>' +
+                    '<input type="text" ng-model="insideText" />' +
+                    '<a href="{{ linkUrl }}">{{ linkTextFromOutside }}</a>' +
+                  '</div>'
+      }
+    });
+
+</script>
+</body>
+</html>
