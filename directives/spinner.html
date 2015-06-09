@@ -1,0 +1,63 @@
+<html>
+<head>
+  <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="../bower_components/spin.js/spin.min.js"></script>
+  <script src="../bower_components/jquery.spinjs/dist/jquery.spin.min.js"></script>
+  <script src="../lib/angular.js"></script>
+  <style>
+    .spinnable {
+      background-color: lightblue;
+      width: 50%;
+      height: 300px;
+      margin: 20px;
+      position: relative;
+      padding: 20px;
+    }
+    .loadingBG {
+      margin: 0 !important;
+      left: 0 !important;
+      top: 0 !important;
+    }
+
+  </style>
+</head>
+<body ng-app="app">
+  <a ng-click="spinner = !spinner" href="#">
+    Toggle spinner
+  </a>
+
+  <div class="spinnable" my-spinner="large">
+    Lorem ipsum...
+  </div>
+
+  <script>
+    $.fn.mySpin = function(opts) {
+      return this.each(function() {
+        var this$ = $(this);
+        if(opts === false || typeof opts === 'undefined') {
+          this$.find('input').attr('disabled', false);
+          this$.removeClass('spinning');
+          this$.spin(false);
+        } else {
+          this$.addClass('spinning');
+          this$.find('input').attr('disabled', true);
+          this$.spin(opts);
+        }
+      });
+    };
+
+    angular.module('app', [])
+      .directive('mySpinner', function() {
+        return {
+          link: function(scope, element, attributes) {
+            var size = attributes['mySpinner'];
+            var spinnerAttribute = attributes['mySpinnerAttribute'] || 'spinner';
+            scope.$watch(spinnerAttribute, function(spinner) {
+              element.mySpin(spinner && size);
+            });
+          }
+        };
+      });
+</script>
+</body>
+</html>
